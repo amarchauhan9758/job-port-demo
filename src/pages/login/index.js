@@ -39,7 +39,7 @@ export default function LoginPage() {
     setOpenLoader(true);
     try {
       const loginResponse = await axios.post(
-        "https://backendjob-71xq.onrender.com/api/user/login",
+        "https://backendjob-71xq.onrender.com/api/users/login",
         credentials
       );
       console.log(loginResponse, "Login response");
