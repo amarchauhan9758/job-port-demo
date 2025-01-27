@@ -1,40 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
-## Getting Started
+Job Application Portal
+A Next.js application for managing job listings, viewing job details, submitting applications, and tracking application history. This project includes user authentication using Google and GitHub sign-in options, ensuring a secure and seamless user experience.
 
-First, run the development server:
+Features
+1. Job Listing Page
+Displays a list of jobs fetched from an API.
+Each job card shows:
+Job title
+Company name
+Location
+Brief description
+Clicking "View Details" navigates to the Job Details page.
+2. Job Details Page
+Shows detailed job information:
+Job description
+Location
+Additional details
+Includes an "Apply Now" button that navigates to the Application page.
+3. Application Page
+Users can submit:
+Name
+Email
+Resume upload
+Includes:
+Form validation
+Success or failure notifications upon submission
+4. Application History Page
+Displays jobs the user has applied for.
+Includes application status tracking.
+5. User Authentication
+Social login using Google and GitHub (powered by NextAuth.js).
+Protects all routes except the login page.
+Getting Started
+Follow these steps to set up and run the project on your local machine.
 
-```bash
+Prerequisites
+Make sure you have the following installed:
+
+Node.js (v14 or later)
+npm or yarn
+A GitHub or Google OAuth Client ID and Secret for authentication
+
+Installation
+Clone the repository: 
+https://github.com/amarchauhan9758/job-port-demo
+cd job-application-portal
+install all dependencies
+npm install
+
+
+
+Configure environment variables:
+
+Create a .env.local file in the root directory.
+
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+
+
+
+Running the Project
+Start the development server:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
