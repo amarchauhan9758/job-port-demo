@@ -68,6 +68,17 @@ export default function JobListingPage({ ...props }) {
     }
   }, [jobList, searchTerm]);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleApiCall);
+    return () => window.removeEventListener("scroll", handleApiCall);
+  }, []);
+
+  const handleApiCall = () => {
+    console.log(window.scrollY + window.innerHeight, "line no 75");
+    // console.log(window.innerHeight, "line no 75");
+    console.log(document.body.scrollHeight, "line no 78");
+  };
+
   return (
     <>
       <HeroSection />
@@ -160,6 +171,7 @@ export default function JobListingPage({ ...props }) {
 // }
 
 export async function getServerSideProps(context) {
+  console.log(context, "line no 174");
   let jobs = [];
   let openLoader = true;
   let openApiError = false;

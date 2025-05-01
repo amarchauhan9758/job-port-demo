@@ -12,8 +12,10 @@ const loadState = () => {
 
 const saveState = (state) => {
   try {
-    const serializedState = JSON.stringify(state);
-    sessionStorage.setItem("jobsState", serializedState);
+    const serializedState = sessionStorage.setItem(
+      "jobsState",
+      JSON.stringify(state)
+    );
   } catch (e) {
     console.error("Could not save state", e);
   }

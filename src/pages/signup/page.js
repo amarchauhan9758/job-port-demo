@@ -21,7 +21,7 @@ export default function SignupPage() {
     try {
       setLoader(true);
       const signupResponse = await axios.post(
-        "http://localhost:8080/api/users/register",
+        "https://backendjob-71xq.onrender.com/api/users/register",
         user
       );
       console.log(signupResponse, "line no 18");

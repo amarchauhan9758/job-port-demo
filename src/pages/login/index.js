@@ -131,7 +131,7 @@ export default function LoginPage() {
               </div>
               <div className="flex justify-center items-center mt-6 space-x-4">
                 <button
-                  onClick={() => signIn("google")}
+                  // onClick={() => signIn("google")}
                   className="flex items-center text-blue-500 space-x-2 px-4 py-2 border rounded-xl  hover:bg-gray-100"
                 >
                   <span>Sign in with</span>
