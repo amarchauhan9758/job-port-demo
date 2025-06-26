@@ -106,11 +106,10 @@ export default function LoginPage() {
               <button
                 onClick={() => onLogin()}
                 disabled={buttonDisabled}
-                className={`w-full p-3 rounded text-white transition-colors ${
-                  buttonDisabled
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-500 hover:bg-blue-600"
-                }`}
+                className={`w-full p-3 rounded text-white transition-colors ${buttonDisabled
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-500 hover:bg-blue-600"
+                  }`}
               >
                 {" "}
                 Sign In{" "}
@@ -131,7 +130,11 @@ export default function LoginPage() {
               </div>
               <div className="flex justify-center items-center mt-6 space-x-4">
                 <button
-                  // onClick={() => signIn("google")}
+
+                  onClick={() => {
+                    setOpenLoader(true);
+                    signIn("google")
+                  }}
                   className="flex items-center text-blue-500 space-x-2 px-4 py-2 border rounded-xl  hover:bg-gray-100"
                 >
                   <span>Sign in with</span>
@@ -143,7 +146,11 @@ export default function LoginPage() {
                   />
                 </button>
                 <button
-                  onClick={() => signIn("github")}
+
+                  onClick={() => {
+                    setOpenLoader(true);
+                    signIn("github")
+                  }}
                   className="flex items-center text-blue-500 space-x-2 px-4 py-2 border rounded-xl hover:bg-gray-100"
                 >
                   <span>Sign in with</span>

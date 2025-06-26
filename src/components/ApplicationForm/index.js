@@ -103,7 +103,7 @@ export default function index() {
         {/* Form Content */}
         <div className="relative z-10">
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">
-            Aerospace Service India
+            Application Form
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name */}

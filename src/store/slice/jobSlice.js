@@ -1,13 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const loadState = () => {
-  try {
-    const serializedState = sessionStorage.getItem("jobsState");
-    return serializedState ? JSON.parse(serializedState) : { jobs: [] };
-  } catch (e) {
-    console.error("Could not load state", e);
-    return { jobs: [] };
+  if (typeof window !== 'undefined') {
+    try {
+      const serializedState = sessionStorage.getItem("jobsState");
+      return serializedState ? JSON.parse(serializedState) : { jobs: [] };
+    } catch (e) {
+      console.error("Could not load state", e);
+      return { jobs: [] };
+    }
   }
+
+  // Fallback for server-side rendering
+  return { jobs: [] };
 };
 
 const saveState = (state) => {

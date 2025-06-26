@@ -26,7 +26,7 @@ export default function SignupPage() {
       );
       console.log(signupResponse, "line no 18");
       toast.success(signupResponse.message);
-      router.push("/auth/login");
+      router.push("/login");
     } catch (error) {
       console.log("Failed");
       toast.error(error.message);
@@ -96,18 +96,17 @@ export default function SignupPage() {
             <button
               onClick={onSignUp}
               disabled={buttonDisabled}
-              className={`w-full p-3 rounded text-white transition-colors ${
-                buttonDisabled
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-500 hover:bg-blue-600"
-              }`}
+              className={`w-full p-3 rounded text-white transition-colors ${buttonDisabled
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-500 hover:bg-blue-600"
+                }`}
             >
               {loader ? "Signing up..." : "Sign Up"}
             </button>
             <p className="text-center text-sm mt-4">
               Already have an account?{" "}
               <span
-                onClick={() => router.push("/auth/login")}
+                onClick={() => router.push("/login")}
                 className="text-blue-500 cursor-pointer hover:underline"
               >
                 Login here

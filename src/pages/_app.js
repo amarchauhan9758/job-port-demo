@@ -30,8 +30,9 @@ export default function App({
         !isLoggedIn &&
         !unprotectedRoutes.includes(router.pathname)
       ) {
+         setOpenLoader(false);
         // Redirect to login if not authenticated and route is protected
-        router.replace("/login");
+        // router.replace("/login");
       } else {
         setOpenLoader(false); // Stop loader once session is determined
       }

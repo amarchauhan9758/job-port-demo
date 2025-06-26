@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 
 export default function JobListingPage({ ...props }) {
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
+  const jobsPerPage = 10;
   // const [jobs, setJobs] = useState(jobs);
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,12 +22,15 @@ export default function JobListingPage({ ...props }) {
   const [openApiError, setOpenApiError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(props.errorMessage);
   const [truncatedJobs, setTruncatedJobs] = useState([]);
+  const [visibleJobs, setVisibleJobs] = useState([]);
 
   const jobList = props?.jobs?.jobs;
 
   useEffect(() => {
     dispatch(setJobs(jobList));
   }, []);
+
+  console.log(visibleJobs, 'line no 33')
 
   useEffect(() => {
     setOpenLoader(true);
@@ -48,6 +53,11 @@ export default function JobListingPage({ ...props }) {
     const first120Words = description?.split(/\s+/).slice(0, 50)?.join(" ");
     return `${first120Words}...`;
   };
+
+
+
+
+
   // Filter jobs based on search term
   useEffect(() => {
     if (jobList) {
@@ -65,19 +75,39 @@ export default function JobListingPage({ ...props }) {
           truncatedDescription: truncateDescription(job.description), // Add truncated description
         }));
       setTruncatedJobs(updatedJobs);
+      setPage(1);
     }
   }, [jobList, searchTerm]);
 
+  // 4️⃣ Control what jobs are visible (pagination by slice)
   useEffect(() => {
-    window.addEventListener("scroll", handleApiCall);
-    return () => window.removeEventListener("scroll", handleApiCall);
-  }, []);
+    const start = 0;
+    const end = page * jobsPerPage;
+    setVisibleJobs(truncatedJobs.slice(start, end));
+  }, [page, truncatedJobs]);
 
-  const handleApiCall = () => {
-    console.log(window.scrollY + window.innerHeight, "line no 75");
-    // console.log(window.innerHeight, "line no 75");
-    console.log(document.body.scrollHeight, "line no 78");
-  };
+  // 5️⃣ Manual scroll-based infinite scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const innerHeight = window.innerHeight;
+      const fullHeight = document.documentElement.scrollHeight;
+
+      if (scrollY + innerHeight >= fullHeight - 50) {
+        if (page * jobsPerPage < truncatedJobs.length) {
+          setOpenLoader(true)
+          setTimeout(() => {
+            setPage((prev) => prev + 1);
+            setOpenLoader(false)
+          }, 500);
+          // setPage((prev) => prev + 1);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [page, truncatedJobs]);
 
   return (
     <>
@@ -99,8 +129,8 @@ export default function JobListingPage({ ...props }) {
       {/* Job Listing */}
       <div className="max-w-4xl mx-auto p-4 bg-white">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
-          {truncatedJobs?.length > 0 ? (
-            truncatedJobs?.map((job) => (
+          {visibleJobs?.length > 0 ? (
+            visibleJobs?.map((job) => (
               <div
                 className="block p-4 border rounded shadow hover:shadow-lg transition"
                 key={job?.id}
@@ -178,9 +208,7 @@ export async function getServerSideProps(context) {
   let errorMessage = "";
 
   try {
-    const res = await axios.get(
-      "https://remotive.com/api/remote-jobs?limit=125"
-    );
+    const res = await axios.get("https://remotive.com/api/remote-jobs?limit=125");
 
     jobs = res?.data; // Extract jobs data from the response
     if (jobs) {
